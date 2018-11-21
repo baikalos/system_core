@@ -747,6 +747,8 @@ service ueventd /sbin/ueventd
     critical
     seclabel u:r:ueventd:s0
     shutdown critical
+    writepid /dev/cpuset/system-background/tasks
+
 
 service console /system/bin/sh
     class core
