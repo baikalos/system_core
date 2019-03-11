@@ -311,6 +311,9 @@ bool BatteryMonitor::update(void) {
             double power = ((double)ChargingCurrent / MILLION) *
                            ((double)ChargingVoltage / MILLION);
             if (MaxPower < power) {
+
+                KLOG_WARNING(LOG_TAG, "%s: MaxPower c=%d,v=%d\n", mChargerNames[i].string(), ChargingCurrent, ChargingVoltage );
+
                 props.maxChargingCurrent = ChargingCurrent;
                 props.maxChargingVoltage = ChargingVoltage;
                 MaxPower = power;
@@ -319,9 +322,10 @@ bool BatteryMonitor::update(void) {
     }
 
     logthis = !healthd_board_battery_update(&props);
+    logthis = 1;
 
     if (logthis) {
-        char dmesgline[256];
+        char dmesgline[512];
         size_t len;
         if (props.batteryPresent) {
             snprintf(dmesgline, sizeof(dmesgline),
@@ -347,6 +351,13 @@ bool BatteryMonitor::update(void) {
                 len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
                                 " cc=%d", props.batteryCycleCount);
             }
+
+                len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
+                                " mc=%d", props.maxChargingCurrent);
+
+                len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
+                                " mv=%d", props.maxChargingVoltage);
+
         } else {
             len = snprintf(dmesgline, sizeof(dmesgline),
                  "battery none");
