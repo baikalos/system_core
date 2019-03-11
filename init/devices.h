@@ -65,7 +65,7 @@ class SysfsPermissions : public Permissions {
     void SetPermissions(const std::string& path) const;
 
   private:
-    const std::string attribute_;
+    std::string attribute_;
 };
 
 class Subsystem {
