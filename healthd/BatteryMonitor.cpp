@@ -173,8 +173,7 @@ BatteryMonitor::PowerSupplyType BatteryMonitor::readPowerSupplyType(const String
         return ANDROID_POWER_SUPPLY_TYPE_UNKNOWN;
 
     ret = mapSysfsString(buf.c_str(), supplyTypeMap);
-    if (ret < 0) {
-        KLOG_WARNING(LOG_TAG, "Unknown power supply type '%s'\n", buf.c_str());
+    if (ret < 0)
         ret = ANDROID_POWER_SUPPLY_TYPE_UNKNOWN;
     }
 
@@ -313,9 +312,7 @@ bool BatteryMonitor::update(void) {
             double power = ((double)ChargingCurrent / MILLION) *
                            ((double)ChargingVoltage / MILLION);
             if (MaxPower < power) {
-
                 KLOG_WARNING(LOG_TAG, "%s: MaxPower c=%d,v=%d\n", mChargerNames[i].string(), ChargingCurrent, ChargingVoltage );
-
                 props.maxChargingCurrent = ChargingCurrent;
                 props.maxChargingVoltage = ChargingVoltage;
                 MaxPower = power;
@@ -343,7 +340,6 @@ bool BatteryMonitor::update(void) {
                 len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
                                 " c=%d", props.batteryCurrent);
             }
-
             if (!mHealthdConfig->batteryFullChargePath.isEmpty()) {
                 len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
                                 " fc=%d", props.batteryFullCharge);
@@ -353,6 +349,7 @@ bool BatteryMonitor::update(void) {
                 len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
                                 " cc=%d", props.batteryCycleCount);
             }
+
 
                 len += snprintf(dmesgline + len, sizeof(dmesgline) - len,
                                 " mc=%d", props.maxChargingCurrent);
