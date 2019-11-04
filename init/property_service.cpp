@@ -913,9 +913,6 @@ void property_load_boot_defaults(bool load_debug_prop) {
         }
     }
 
-    // Update with vendor-specific property runtime overrides
-    vendor_load_properties();
-
     property_initialize_ro_product_props();
     property_derive_build_fingerprint();
 
