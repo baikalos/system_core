@@ -101,15 +101,15 @@ bool EnsurePathMounted(Fstab* fstab, const std::string& path, const std::string&
         }
     }
 
-    auto mounted = GetMountState(rec->mount_point);
+    const std::string mount_point = mount_pt.empty() ? rec->mount_point : mount_pt;
+
+    auto mounted = GetMountState(mount_point);
     if (mounted == MountState::ERROR) {
         return false;
     }
     if (mounted == MountState::MOUNTED) {
         return true;
     }
-
-    const std::string mount_point = mount_pt.empty() ? rec->mount_point : mount_pt;
 
     static const std::vector<std::string> supported_fs{"ext4", "squashfs", "vfat", "f2fs", "none"};
     if (std::find(supported_fs.begin(), supported_fs.end(), rec->fs_type) == supported_fs.end()) {
@@ -118,15 +118,6 @@ bool EnsurePathMounted(Fstab* fstab, const std::string& path, const std::string&
     }
 
     int result = fs_mgr_do_mount_one(*rec, mount_point);
-    if (result == -1 && rec->fs_mgr_flags.formattable) {
-        PERROR << "Failed to mount " << mount_point << "; formatting";
-        bool crypt_footer = rec->is_encryptable() && rec->key_loc == "footer";
-        if (fs_mgr_do_format(*rec, crypt_footer) != 0) {
-            PERROR << "Failed to format " << mount_point;
-            return false;
-        }
-        result = fs_mgr_do_mount_one(*rec, mount_point);
-    }
 
     if (result == -1) {
         PERROR << "Failed to mount " << mount_point;
