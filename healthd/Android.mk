@@ -195,7 +195,7 @@ _img_modules += $$(LOCAL_MODULE)
 LOCAL_SRC_FILES := $1
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $$(TARGET_ROOT_OUT)/res/images/charger
+LOCAL_MODULE_PATH := $$(TARGET_OUT_PRODUCT)/etc/res/images/charger
 include $$(BUILD_PREBUILT)
 endef
 
