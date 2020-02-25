@@ -843,6 +843,7 @@ service ueventd /system/bin/ueventd
     critical
     seclabel u:r:ueventd:s0
     shutdown critical
+    writepid /dev/cpuset/system-background/tasks
 
 service console /system/bin/sh
     class core
@@ -852,6 +853,7 @@ service console /system/bin/sh
     group shell log readproc
     seclabel u:r:shell:s0
     setenv HOSTNAME console
+    writepid /dev/cpuset/system-background/tasks
 
 on property:ro.debuggable=1
     # Give writes to anyone for the trace folder on debug builds.

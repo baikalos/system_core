@@ -4,3 +4,4 @@ service health-hal-2-0 /vendor/bin/hw/android.hardware.health@2.0-service
     group system
     capabilities WAKE_ALARM
     file /dev/kmsg w
+    writepid /dev/cpuset/system-background/tasks

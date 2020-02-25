@@ -3,3 +3,4 @@ service usbd /system/bin/usbd
     oneshot
     user root
     group root usb system
+    writepid /dev/cpuset/system-background/tasks

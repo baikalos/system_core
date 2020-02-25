@@ -2,6 +2,7 @@ service adb_root /system/bin/adb_root
     class main
     user root
     group root system
+    writepid /dev/cpuset/system-background/tasks
 
 on boot
     mkdir /data/adbroot 0700 root root
