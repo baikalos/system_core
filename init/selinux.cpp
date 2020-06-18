@@ -97,10 +97,10 @@ EnforcingStatus StatusFromCmdline() {
 }
 
 bool IsEnforcing() {
-    if (ALLOW_PERMISSIVE_SELINUX) {
+    //if (ALLOW_PERMISSIVE_SELINUX) {
         return StatusFromCmdline() == SELINUX_ENFORCING;
-    }
-    return true;
+    //}
+    //return true;
 }
 
 // Forks, executes the provided program in the child, and waits for the completion in the parent.
