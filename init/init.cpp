@@ -830,7 +830,7 @@ int SecondStageMain(int argc, char** argv) {
     am.QueueBuiltinAction(queue_property_triggers_action, "queue_property_triggers");
 
     // Restore prio before main loop
-    setpriority(PRIO_PROCESS, 0, 0);
+    setpriority(PRIO_PROCESS, 0, -15);
     while (true) {
         // By default, sleep until something happens.
         auto epoll_timeout = std::optional<std::chrono::milliseconds>{};
