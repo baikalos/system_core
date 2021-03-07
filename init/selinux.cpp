@@ -91,7 +91,7 @@ namespace {
 
 enum EnforcingStatus { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
 
-EnforcingStatus StatusFromCmdline() {
+/*EnforcingStatus StatusFromCmdline() {
     EnforcingStatus status = SELINUX_ENFORCING;
 
     ImportKernelCmdline([&](const std::string& key, const std::string& value) {
@@ -101,14 +101,14 @@ EnforcingStatus StatusFromCmdline() {
     });
 
     return status;
-}
+}*/
 
-bool IsEnforcing() {
+/*bool IsEnforcing() {
     if (ALLOW_PERMISSIVE_SELINUX) {
         return StatusFromCmdline() == SELINUX_ENFORCING;
     }
     return true;
-}
+}*/
 
 // Forks, executes the provided program in the child, and waits for the completion in the parent.
 // Child's stderr is captured and logged using LOG(ERROR).
@@ -474,6 +474,7 @@ void SelinuxInitialize() {
         LOG(FATAL) << "Unable to load SELinux policy";
     }
 
+    /*
     bool kernel_enforcing = (security_getenforce() == 1);
     bool is_enforcing = IsEnforcing();
     if (kernel_enforcing != is_enforcing) {
@@ -485,7 +486,7 @@ void SelinuxInitialize() {
 
     if (auto result = WriteFile("/sys/fs/selinux/checkreqprot", "0"); !result.ok()) {
         LOG(FATAL) << "Unable to write to /sys/fs/selinux/checkreqprot: " << result.error();
-    }
+    }*/
 }
 
 constexpr size_t kKlogMessageSize = 1024;

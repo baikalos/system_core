@@ -92,9 +92,9 @@ static Result<std::string> ComputeContextFromExecutable(const std::string& servi
                 "service correctly? https://source.android.com/security/selinux/"
                 "device-policy#label_new_services_and_address_denials",
                 service_path.c_str(), filecon.get(), mycon.get());
-        if (security_getenforce() != 0) {
-            return Error() << error;
-        }
+        //if (security_getenforce_impl() != 0) {
+        //    return Error() << error;
+        //}
         LOG(ERROR) << error;
     }
     if (rc < 0) {

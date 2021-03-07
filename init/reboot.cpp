@@ -265,7 +265,7 @@ static bool FindPartitionsToUmount(std::vector<MountEntry>* block_dev_partitions
 
 static void DumpUmountDebuggingInfo() {
     int status;
-    if (!security_getenforce()) {
+    if (0 /*!security_getenforce_impl()*/) {
         LOG(INFO) << "Run lsof";
         const char* lsof_argv[] = {"/system/bin/lsof"};
         logwrap_fork_execvp(arraysize(lsof_argv), lsof_argv, &status, false, LOG_KLOG, true,
